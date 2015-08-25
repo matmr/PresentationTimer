@@ -1,0 +1,14 @@
+QWidget {
+            background: white;
+            opacity: 0.4;
+}
+QLabel#main {
+                font-family: Verdana;
+                font-size: 48px;
+                color: red;
+}
+QLabel#time {
+                font-family: Verdana;
+                font-size: 20px;
+                color: grey;
+}
