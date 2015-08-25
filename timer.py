@@ -46,27 +46,20 @@ class ConferenceTimerWindow(QtGui.QWidget):
         self.label = QtGui.QLabel('START')
         self.label.setObjectName('main')
         self.label.setAttribute(QtCore.Qt.WA_TranslucentBackground)
-        layout = QtGui.QHBoxLayout()
-        layout.addStretch(1)
-        layout.addWidget(self.label)
-        layout.addStretch(2)
 
         # Time Label.
         self.time_label = QtGui.QLabel('')
         self.time_label.setObjectName('time')
         self.time_label.setAttribute(QtCore.Qt.WA_TranslucentBackground)
-        time_layout = QtGui.QHBoxLayout()
-        time_layout.addStretch()
-        time_layout.addWidget(self.time_label)
 
         self.timer = QtCore.QTimer()
         self.timer.timeout.connect(self.worker)
         self.timer.start(_REFRESH_TIME)
 
         # Main layout.
-        main_layout = QtGui.QVBoxLayout()
-        main_layout.addLayout(layout)
-        main_layout.addLayout(time_layout)
+        main_layout = QtGui.QHBoxLayout()
+        main_layout.addWidget(self.label)
+        main_layout.addWidget(self.time_label)
 
         self.setLayout(main_layout)
         with open('style.qss', 'rt') as f:
@@ -92,7 +85,8 @@ class ConferenceTimerWindow(QtGui.QWidget):
         current_time = time.mktime(time.gmtime()) - time.timezone
 
         # Update clock.
-        self.time_label.setText(time.ctime(current_time))
+        # self.time_label.setText(time.ctime(current_time))
+        self.time_label.setText(time.strftime('%H:%M', time.localtime()))
 
         if current_time < self.begin:
             self.label.setText('ICoEV 2015')
